@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="">
+  </head>
+  <body class="container">
+
+
+    <div class="jumbotron text-center">
+      <h1 class="display-4">Hot Restaurant</h1>
+      <hr class="my-4">
+      <h2>Current Reservations and Waiting List</p>
+      <p class="lead mx-2">
+        <a class="btn btn-danger btn-lg mr-2" href="/make" role="button"><i class="bi bi-credit-card"></i> Make Reservation</a>
+        <a href="/" class="ml-2" style="color:black;" role="button"><i class="bi bi-house-fill"></i></a>
+      </p>
+    </div>
+
+    <div class="card my-3">
+      <div class="card-header">
+        Current Reservations
+      </div>
+      <ul id="tables" class="list-group list-group-flush"></ul>
+    </div>
+
+    <div class="card my-3">
+      <div class="card-header">
+        Waiting List
+      </div>
+      <ul id="waiting" class="list-group list-group-flush"></ul>
+    </div>
+
+    <p>Control Panel</p>
+    
+    <p><a href="#">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
+        
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+      const tables = document.getElementById("tables");
+      const waiting = document.getElementById("waiting");
+
+      const setTables = data => {
+        console.log(data)
+        tables.innerHTML = `
+        ${data.map((table, tableNumber) =>
+          `
+            <li class="list-group-item">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Table #${tableNumber + 1}</h5>
+                  <hr/>
+                  <p class="card-text">ID: ${table.id}</p>
+                  <p class="card-text">Name: ${table.name}</p>
+                  <p class="card-text">Email: ${table.email}</p>
+                  <p class="card-text">Phone: ${table.phone}</p>
+                </div>
+              </div>
+            </li>
+          `).join("")}
+        `;
+}
+
+      const setWaiting = data => {
+        console.log(data)
+        waiting.innerHTML = `
+        ${data.map((table, tableNumber) =>
+          `
+            <li class="list-group-item">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Table #${tableNumber + 1}</h5>
+                  <hr/>
+                  <p class="card-text">ID: ${table.id}</p>
+                  <p class="card-text">Name: ${table.name}</p>
+                  <p class="card-text">Email: ${table.email}</p>
+                  <p class="card-text">Phone: ${table.phone}</p>
+                </div>
+              </div>
+            </li>
+          `).join("")}
+        `;
+}
+       window.addEventListener('load', () => {
+        fetch('/api/tables')
+          .then(response => response.json())
+          .then(data => setTables(data))
+
+        fetch('/api/waitlist')
+          .then(response => response.json())
+          .then(data => setWaiting(data))
+       })
+    </script>
+  </body>
+</html>
