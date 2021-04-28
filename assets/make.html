@@ -72,16 +72,16 @@
     addBtn.addEventListener('click', e => {
       e.preventDefault();
       
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const id = document.getElementById('id').value.trim();
+      const name = document.getElementById('name');
+      const phone = document.getElementById('phone');
+      const email = document.getElementById('email');
+      const id = document.getElementById('id');
         
       let newReservation = {
-        name: name,
-        phone: phone,
-        email: email,
-        id: id,
+        name: name.value.trim(),
+        phone: phone.value.trim(),
+        email: email.value.trim(),
+        id: id.value.trim(),
       };
 
         fetch('/api/reserve', {
