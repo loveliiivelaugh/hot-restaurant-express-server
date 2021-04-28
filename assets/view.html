@@ -39,7 +39,7 @@
 
     <p>Control Panel</p>
     
-    <p><a id="clear-table" href="/view.html">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
+    <p><a id="clear-table" href="#">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
         
 
 
@@ -94,6 +94,7 @@
           .then(data => {
             console.log("You have deleted a table", data)
             alert("You have deleted a table")
+            window.location.reload();
           })
       })
 
