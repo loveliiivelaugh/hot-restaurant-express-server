@@ -38,4 +38,16 @@ app.post('/api/reserve', (req, res) => {
   res.sendFile(path.join(__dirname, '../view.html'));
 });
 
+app.delete('/api/clear-table', (req, res) => {
+  console.log(reservations, waiting);
+  
+  waiting.length > 0 ? 
+  reservations.splice(reservations.length, waiting[0]) : //?not sure if the splice() parameters are correct??
+  reservations.pop();
+
+  console.log(reservations, waiting);
+
+  res.sendFile(path.join(__dirname, '../view.html'));
+});
+
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
