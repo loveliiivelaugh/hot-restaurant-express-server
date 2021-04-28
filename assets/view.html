@@ -92,7 +92,7 @@
           `).join("")}
         `;
 }
-       window.addEventListener('load', () => {
+      window.addEventListener('load', () => {
         fetch('/api/tables')
           .then(response => response.json())
           .then(data => setTables(data))
@@ -100,7 +100,7 @@
         fetch('/api/waitlist')
           .then(response => response.json())
           .then(data => setWaiting(data))
-       })
+      })
     </script>
   </body>
 </html>
