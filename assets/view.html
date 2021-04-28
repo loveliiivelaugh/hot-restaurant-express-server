@@ -39,7 +39,7 @@
 
     <p>Control Panel</p>
     
-    <p><a href="/api/clear-table">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
+    <p><a id="clear-table" href="/view.html">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
         
 
 
@@ -50,10 +50,9 @@
     <script>
       const tables = document.getElementById("tables");
       const waiting = document.getElementById("waiting");
+      const clear = document.getElementById("clear-table")
 
-      const setTables = data => {
-        console.log(data)
-        tables.innerHTML = `
+      const setTables = data => tables.innerHTML = `
         ${data.map((table, tableNumber) =>
           `
             <li class="list-group-item">
@@ -70,11 +69,8 @@
             </li>
           `).join("")}
         `;
-}
 
-      const setWaiting = data => {
-        console.log(data)
-        waiting.innerHTML = `
+      const setWaiting = data => waiting.innerHTML = `
         ${data.map((table, tableNumber) =>
           `
             <li class="list-group-item">
@@ -91,7 +87,16 @@
             </li>
           `).join("")}
         `;
-}
+
+      clear.addEventListener('click', () => {
+        fetch('/api/clear-table')
+          .then(response => response.json())
+          .then(data => {
+            console.log("You have deleted a table", data)
+            alert("You have deleted a table")
+          })
+      })
+
       window.addEventListener('load', () => {
         fetch('/api/tables')
           .then(response => response.json())

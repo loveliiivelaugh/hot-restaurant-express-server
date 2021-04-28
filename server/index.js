@@ -48,7 +48,7 @@ app.delete('/api/clear-table', (req, res) => {
 
   console.log(reservations, waiting);
 
-  window.location.reload();
+  res.json(reservations);
 });
 
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
