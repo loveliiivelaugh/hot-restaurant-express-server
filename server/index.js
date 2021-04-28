@@ -35,19 +35,20 @@ app.post('/api/reserve', (req, res) => {
   waiting.push(newReservation) : 
   reservations.push(newReservation);
 
-  res.sendFile(path.join(__dirname, '../view.html'));
+  res.json(reservations);
 });
 
 app.delete('/api/clear-table', (req, res) => {
   console.log(reservations, waiting);
   
-  waiting.length > 0 ? 
-  reservations.splice(reservations.length, waiting[0]) : //?not sure if the splice() parameters are correct??
+  waiting.length > 0 ?
+  //?not sure if the splice() parameters are correct??
+  reservations.splice(reservations.length, waiting[0]) :
   reservations.pop();
 
   console.log(reservations, waiting);
 
-  res.sendFile(path.join(__dirname, '../view.html'));
+  window.location.reload();
 });
 
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
